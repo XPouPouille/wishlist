@@ -1,0 +1,11 @@
+services:
+  wishlist:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - wishlist-data:/data
+    restart: unless-stopped
+
+volumes:
+  wishlist-data:

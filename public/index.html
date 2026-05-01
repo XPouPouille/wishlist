@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wishlist</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>✨ Ma Wishlist</h1>
+    <button id="viewToggle" class="view-toggle-btn" title="Changer la vue">
+      <span id="viewIcon">🎁</span>
+      <span id="viewLabel">Voir les réservés</span>
+    </button>
+  </header>
+
+  <main id="grid" class="grid"></main>
+
+  <!-- Modal ajout -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-box">
+      <h2>Ajouter un article</h2>
+      <label>Lien URL</label>
+      <input id="inputUrl" type="url" placeholder="https://..." />
+      <label>Titre <span class="optional">(optionnel, auto-détecté)</span></label>
+      <input id="inputTitle" type="text" placeholder="Nom de l'article" />
+      <div id="previewZone" class="preview-zone hidden">
+        <img id="previewImg" src="" alt="aperçu" />
+        <span id="previewTitle"></span>
+      </div>
+      <div id="loadingMsg" class="loading hidden">⏳ Récupération de l'aperçu…</div>
+      <div class="modal-actions">
+        <button id="cancelBtn" class="btn-cancel">Annuler</button>
+        <button id="confirmBtn" class="btn-confirm">Ajouter</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
