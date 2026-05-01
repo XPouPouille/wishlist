@@ -149,6 +149,8 @@ function openModal() {
   previewZone.classList.add('hidden');
   loadingMsg.classList.add('hidden');
   confirmBtn.disabled = true;
+  const errMsg = document.getElementById('addError');
+  if (errMsg) errMsg.classList.add('hidden');
   inputUrl.focus();
 }
 
@@ -196,19 +198,33 @@ async function fetchOg(url) {
 confirmBtn.addEventListener('click', async () => {
   const url = inputUrl.value.trim();
   if (!url) return;
-  const title = inputTitle.value.trim() || pendingOg?.title || new URL(url).hostname;
+
+  let hostname = url;
+  try { hostname = new URL(url).hostname; } catch {}
+  const title = inputTitle.value.trim() || pendingOg?.title || hostname;
   const image = pendingOg?.image || null;
 
   confirmBtn.disabled = true;
-  const res = await fetch('/api/wishlist', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ url, title, image })
-  });
-  const item = await res.json();
-  items.push(item);
-  closeModal();
-  render();
+  confirmBtn.textContent = '⏳ Ajout…';
+
+  try {
+    const res = await fetch('/api/wishlist', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url, title, image })
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const item = await res.json();
+    items.push(item);
+    closeModal();
+    render();
+  } catch (err) {
+    confirmBtn.disabled = false;
+    confirmBtn.textContent = 'Ajouter';
+    const errMsg = document.getElementById('addError');
+    if (errMsg) { errMsg.textContent = '⚠️ Erreur : ' + err.message; errMsg.classList.remove('hidden'); }
+  }
+  confirmBtn.textContent = 'Ajouter';
 });
 
 viewToggle.addEventListener('click', () => {

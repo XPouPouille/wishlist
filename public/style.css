@@ -305,6 +305,9 @@ header h1 {
 .btn-confirm:hover { background: var(--accent2); }
 .btn-confirm:disabled { opacity: 0.5; cursor: not-allowed; }
 
+.error-msg { color: #ff6b6b; font-size: 0.82rem; background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); border-radius: 8px; padding: 8px 12px; }
+.error-msg.hidden { display: none; }
+
 @media (max-width: 600px) {
   .grid { padding: 16px; gap: 14px; }
   header { padding: 16px; }
