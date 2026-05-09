@@ -6,6 +6,19 @@ services:
     volumes:
       - wishlist-data:/data
     restart: unless-stopped
+    networks:
+      - frontend
+      - backend
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.wishlist.rules=HOST('wishlist.xavierchapouille.ddns.net')
+      - traefik.http.routers.wishlist.entrypoints=web
 
 volumes:
   wishlist-data:
+
+networks:
+  frontend:
+    external: true
+  backend:
+    external: true
