@@ -9,7 +9,6 @@ services:
     restart: unless-stopped
     networks:
       - frontend
-      - backend
     labels:
       - traefik.enable=true
       - traefik.http.routers.wishlist.rule=HOST('wishlist.xavierchapouille.ddns.net')
@@ -20,6 +19,4 @@ volumes:
 
 networks:
   frontend:
-    external: true
-  backend:
     external: true
